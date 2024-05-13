@@ -1,0 +1,99 @@
+{
+  "data": {
+    "dataset": "poetry",
+    "data_dir": "data",
+    "train_file": "train.json",
+    "val_file": "val.json",
+    "test_file": "test.json"
+  },
+  "vocabulary": {
+    "dir": "poetry_vocab",
+    "vocab_dict": "word.dict",
+    "max_token_vocab": 50000,
+    "label_dict": "label.dict"
+  },
+  "embedding": {
+    "token": {
+      "dimension": 512,
+      "type": "pretrain",
+      "pretrained_file": "BERT_THU/poetry_vector.txt",
+      "dropout": 0.5,
+      "init_type": "uniform"
+    },
+    "label": {
+      "dimension": 512,
+      "type": "random",
+      "dropout": 0.5,
+      "init_type": "kaiming_uniform"
+    }
+  },
+  "kgmt": {
+    "max_length": 50,
+    "RNN": {
+      "bidirectional": true,
+      "num_layers": 1,
+      "type": "GRU",
+      "hidden_dimension": 64,
+      "dropout": 0.1
+    },
+    "att": {
+      "layers_num": 4,
+      "heads_num": 4,
+      "dropout": 0.1
+    },
+    "CNN": {
+      "kernel_size": [2, 3],
+      "num_kernel": 256
+    },
+    "topK_max_pooling": 1
+  },
+  "model": {
+    "name": "Poka",
+    "linear_transformation": {
+      "text_dimension": 512,
+      "node_dimension": 512,
+      "dropout": 0.5
+    },
+    "classifier": {
+      "num_layer": 1,
+      "dropout": 0.5
+    }
+  },
+  "train": {
+    "optimizer": {
+      "type": "Adam",
+      "learning_rate": 0.0001,
+      "lr_decay": 1.0,
+      "lr_patience": 5,
+      "early_stopping": 50
+    },
+    "batch_size": 64,
+    "start_epoch": 0,
+    "end_epoch": 400,
+    "loss": {
+      "classification": "BCEWithLogitsLoss"
+    },
+    "device_setting": {
+      "device": "cuda",
+      "visible_device_list": "0",
+      "num_workers": 10
+    },
+    "checkpoint": {
+      "dir": "checkpoints",
+      "max_number": 10,
+      "save_best": ["Macro_F1", "Micro_F1"]
+    }
+  },
+  "eval": {
+    "batch_size": 512,
+    "threshold": 0.5
+  },
+  "test": {
+    "best_checkpoint": "best_micro_Poka",
+    "batch_size": 512
+  },
+  "log": {
+    "level": "info",
+    "filename": "train.log"
+  }
+}
