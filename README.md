@@ -23,3 +23,17 @@ python train.py config/poka_poetry.json
 ```bash
 python evaluate.py config/poka_poetry.json
 ```
+
+## Citation
+
+Please cite our paper if you use our code, dataset, or compare with our model:
+```
+@ARTICLE{10737425,
+  author={Wei, Yuting and Hu, Linmei and Zhu, Yangfu and Zhao, Jiaqi and Wu, Bin},
+  journal={IEEE/ACM Transactions on Audio, Speech, and Language Processing}, 
+  title={Knowledge-Guided Transformer for Joint Theme and Emotion Classification of Chinese Classical Poetry}, 
+  year={2024},
+  volume={32},
+  pages={4783-4794},
+  doi={10.1109/TASLP.2024.3487409}}
+```
